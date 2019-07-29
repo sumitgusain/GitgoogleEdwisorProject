@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+.navbar{
+    border-radius: 4px;
+    margin: 4px 0px 0px 0px;
+}
+.jumbotron{
+    text-align: center;
+    background-color : #343a40 !important ;
+    color: white;
+}
+h2,input,button,a{
+    font-family: 'Oswald', sans-serif;
+}
+input{
+    border:3px solid orange;
+}
+.btn{
+    color: white;
+}
+.navbar-brand:hover{
+    color: orange;
+    cursor: pointer;
+	transition: all 0.3s ease 0s;
+}

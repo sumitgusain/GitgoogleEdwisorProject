@@ -1,0 +1,56 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" [routerLink]="['/user']">
+            <i class=" fa fa-github"></i> GitGoogle
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/user']">Profile <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/repo']">Repositories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/gists']">Gists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/followers']">Followers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/following']">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" [routerLink]="[ '/stars']">Stars</a>
+                </li>
+                <button class="btn btn-sm btn-warning" style="margin-right: 2px;" [routerLink]="[ '/search']">Search</button>
+
+
+                <button class="btn btn-sm btn-danger" style="margin-right: 2px;" (click)="logout()">LogOut</button>
+            </ul>
+
+        </div>
+
+    </nav>
+    <br>
+    <ul class="list-group" *ngIf="starred">
+        <li class="list-group-item active">
+            <h5>Stars</h5>
+        </li>
+        <div class="list-group-item" *ngFor="let star of starred">
+            <p id="lower" class="clear-fix"> <i class="fa fa-star" aria-hidden="true"></i> {{star.full_name}} <a class="btn btn-warning float-right" href="{{star.clone_url}}" target="_blank" target="_blank">View</a>
+            </p>
+            <p>{{star.description}}</p>
+        </div>
+    </ul>
+
+    <div id="box">
+
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" color="#fff" type="line-scale" fullScreen="true">
+</ngx-spinner>

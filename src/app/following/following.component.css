@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+.navbar{
+    border-radius: 4px;
+    margin: 4px 0px 0px 0px;
+}
+p{
+    text-transform: capitalize;
+}
+p,li,a,#box,button{
+    font-family: 'Oswald', sans-serif;
+}
+.navbar-brand:hover{
+    color: orange;
+    cursor: pointer;
+	transition: all 0.3s ease 0s;
+}

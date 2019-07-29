@@ -1,0 +1,128 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" [routerLink]="['/user']">
+            <i class=" fa fa-github"></i> GitGoogle
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link">Profile <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/repo']">Repositories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/gists']">Gists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/followers']">Followers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/following']">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/stars']">Stars</a>
+                </li>
+                <button class="btn btn-sm btn-warning" style="margin-right: 2px;" [routerLink]="[ '/search']">Search</button>
+
+
+                <button class="btn btn-sm btn-danger" style="margin-right: 2px;" (click)="logout()">LogOut</button>
+            </ul>
+
+        </div>
+
+    </nav>
+
+</div>
+
+<div *ngIf="profile">
+    <div class="container" *ngIf="profile" style="padding-top: 3px;">
+
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action list-group-item-success">
+                <h5>{{profile.name}}<small>({{profile.login}})</small>
+                    <span *ngIf="profile.company">, Works at {{profile.company}}</span> {{profile.location}}
+                </h5>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 3px;">
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row d-sm-block">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img src="{{profile.avatar_url}}" width="100%" class="rounded">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="list-group">
+                                <div class="list-group-item list-group-item-action list-group-item-success">
+                                    <h5>{{profile.name}} <small>({{profile.login}})</small></h5>
+
+
+
+                                </div>
+                                <div class="list-group-item list-group-item-action" *ngIf="profile.company">
+                                    <h6><b>Works At: </b> {{profile.company}}</h6>
+                                </div>
+                                <div class="list-group-item list-group-item-action" *ngIf="profile.location">
+                                    <h6><b>Location:</b> {{profile.location}}</h6>
+                                </div>
+                                <div class="list-group-item list-group-item-action" *ngIf="profile.bio">
+                                    <h6><b>Bio:</b> {{profile.bio}}</h6>
+                                </div>
+                                <div class="list-group-item list-group-item-action" *ngIf="profile.location">
+                                    <h6><b>Location:</b> {{profile.location}}</h6>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <br>
+                    <div class="d-flex flex-wrap justify-content-between align-self-start">
+
+                        <div class="col-sm-4">
+                            <p><a href="{{profile.html_url}}" style="width: 100%; margin: 0;" target="_blank" target="_blank" class="btn btn-success btn-sm">View Profile</a></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="text-center">
+                                <a style="margin-right:2px;" [routerLink]="[ '/followers']" class="badge badge-lg badge-warning">{{profile.followers}}
+                  Followers</a>
+                                <a style="margin-right:2px;" [routerLink]="[ '/following']" class="badge badge-warning">{{profile.following}}
+                  Following</a>
+                                <a style="margin-right:2px;" [routerLink]="[ '/gists']" class="badge badge-warning">{{profile.public_gists}}
+                  Public
+                  Gists</a>
+                                <a style="margin-right:2px;" [routerLink]="[ '/repo']" class="badge badge-warning">{{profile.public_repos}}
+                  Repos</a>
+                                <a style="margin-right:2px;" [routerLink]="[ '/stars']" class="badge badge-warning">{{counts}}
+                  Stars</a>
+                            </p>
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" color="#fff" type="line-scale" fullScreen="true">
+</ngx-spinner>

@@ -1,0 +1,163 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" [routerLink]="['/user']">
+            <i class=" fa fa-github"></i> GitGoogle
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/user']">Profile <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/repo']">Repositories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/gists']">Gists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/followers']">Followers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/following']">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="[ '/stars']">Stars</a>
+                </li>
+                <button class="btn btn-sm btn-danger" style="margin-right: 2px;" [routerLink]="[ '/search']">Search</button>
+                <button class="btn btn-sm btn-warning" style="margin-right: 2px;" (click)="logout()">LogOut</button>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="container search">
+        <div class="input-group">
+            <input type="text" #username class="form-control" placeholder="Search this blog">
+            <div class="input-group-append">
+                <button class="btn btn-primary" (click)="searchvalue(username.value)" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="profile" class="ready">
+        <div class="container" *ngIf="profile">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action" style="background-color: #343a40; color: white;">
+                    {{profile.name}} <small>({{profile.login}})</small>
+                    <span *ngIf="profile.company">, works at {{profile.company}}</span> {{profile.location}}
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 2px;">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row d-sm-block">
+                        <div class="row">
+                            <div class="col-sm-3" style="padding-left: 20px;">
+                                <img src="{{profile.avatar_url}}" width="100%" class="rounded">
+                            </div>
+                            <div class="col-sm-9" style="padding-top: 10px;">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action" style="background-color: #343a40; color: white;">
+                                        <h5>{{profile.name}} <small>({{profile.login}})</small></h5>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" *ngIf="profile.company">
+                                        <h5><b>Works At: </b> {{profile.company}}</h5>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" *ngIf="profile.location">
+                                        <h5><b>Location:</b> {{profile.location}}</h5>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action" *ngIf="profile.bio">
+                                        <h5><b>Bio:</b> {{profile.bio}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-between align-self-start" style="padding-top: 4px;">
+                            <div class="col-sm-3 text-center">
+                                <p><a href="{{profile.html_url}}" style="padding-left: 40px; padding-right: 40px;" target="_blank" target="_blank" class="btn btn-success btn-sm">View
+                                        Profile</a></p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-center">
+                                    <a style="margin-right:2px;" class="badge badge-lg badge-warning">{{profile.followers}}
+                                        Followers</a>
+                                    <a style="margin-right:2px;" class="badge badge-warning">{{profile.following}}
+                                        Following</a>
+                                    <a style="margin-right:2px;" class="badge badge-warning">{{profile.public_gists}}
+                                        Public
+                                        Gists</a>
+                                    <a style="margin-right:2px;" class="badge badge-warning">{{profile.public_repos}}
+                                        Repos</a>
+                                    <a style="margin-right:2px;" class="badge badge-warning">{{counts}}
+                                        Star</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 2px;" *ngIf="profile.public_repos">
+            <div class="list-group" *ngIf="profile.public_repos">
+                <div class="list-group-item" style="height: 55px; background-color: #343a40; color: white;">
+                    <h3 class="panel-title">Repositories</h3>
+                </div>
+                <div class="list-group-item list-group-item-action" *ngFor="let repo of repos">
+                    <p id="lower" class="clear-fix">
+                        <i class="fa fa-file-text" style="font-size:24px"></i> {{repo.name}}
+                        <a class="btn btn-warning pull-right" target="_blank" href="{{repo.html_url}}" target="_blank">View
+                            Project</a>
+                    </p>
+                    <p>{{repo.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 2px; padding-bottom: 2px;" *ngIf="profile.followers">
+            <div class="list-group">
+                <div class="list-group-item" style="height: 55px; background-color: #343a40; color: white;">
+                    <h3>Followers</h3>
+                </div>
+                <div class="list-group-item list-group-item-action" style="height: 55px;" *ngFor="let followers of follow">
+                    <p id="#ok"><img class="rounded-circle" style="width: 30px;" src="{{followers.avatar_url}}"> {{followers.login}}
+                        <a href="{{followers.html_url}}" target="_blank" class="btn btn-warning pull-right">View
+                            Profile</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 2px;" *ngIf="profile.public_gists">
+            <div class="list-group">
+                <div class="list-group-item" style="height: 55px; background-color: #343a40; color: white;" *ngIf="data">
+                    <h3 class="panel-title">Gists</h3>
+                </div>
+                <div class="list-group-item list-group-item-action" *ngFor="let gist of data">
+                    <p id="lower" class="clear-fix">
+                        <i class="fa fa-file-text" style="font-size:24px"></i>
+                        <b> Gist Of:</b> {{profile.login}}<a class="btn btn-warning pull-right" target="_blank" href="{{gist.url}}" target="_blank">View Project</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="container col-md-12" id="reposss">
+    </div>
+</div>
+<div>
+    <div class="container">
+        <div class="container col-md-12" id="follow">
+        </div>
+    </div>
+</div>
+<div class="container" style="padding-top: 2px;">
+    <div class="container col-md-12" id="box">
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" color="#fff" type="line-scale" fullScreen="true">
+</ngx-spinner>
